@@ -1,0 +1,243 @@
+/* ╔══════════════════════════════════════════════════════╗
+   ║  TALLER CSS · El Pintor · SENA ADSO 3472722          ║
+   ║  style.css                                           ║
+   ║                                                      ║
+   ║  Completa este archivo siguiendo la guía             ║
+   ║  taller-css-guia.html paso a paso.                   ║
+   ╚══════════════════════════════════════════════════════╝ */
+
+
+/* ══════════════════════════════════════════════════════
+   ACTIVIDAD 1 — Colores base
+   Selectores: body, h1, h2
+   Propiedades: color, background-color
+══════════════════════════════════════════════════════ */
+
+/* Paso 2: Fondo oscuro para toda la página */
+body {
+  background-color: #0b1c46;  /* azul muy oscuro */
+  color: #E2E8F0;             /* texto claro */
+}
+
+/* Paso 3: Color morado para el título principal */
+h1 {
+  color: #8B5CF6;
+}
+
+/* Paso 4: Experimenta con formatos de color */
+h2 {
+  /* Prueba: color: purple; */
+  /* Prueba: color: #9333EA; */
+  /* Prueba: color: rgb(147, 51, 234); */
+  /* Prueba: color: rgba(147, 51, 234, 0.8); */
+  color: #A78BFA;
+}
+
+
+/* ══════════════════════════════════════════════════════
+   ACTIVIDAD 2 — El Tipógrafo
+   Selectores: body, h1, h2, p, a
+   Propiedades: font-family, font-size, font-weight,
+                font-style, line-height, text-align,
+                text-decoration, text-transform, letter-spacing
+══════════════════════════════════════════════════════ */
+
+/* Paso 1: Agrega font-family al body (modifica la regla de arriba) */
+/* Agrega dentro del body: font-family: 'Segoe UI', Arial, sans-serif; */
+/* Agrega dentro del body: line-height: 1.6; */
+/* Agrega dentro del body: font-size: 1rem; */
+
+/* Paso 2: Tamaño, grosor e interlineado del h1 */
+/* Agrega dentro del h1: */
+/*   font-size: 3rem; */
+/*   font-weight: 900; */
+/*   line-height: 1.1; */
+
+/* Paso 3: Propiedades del h2 */
+/* Agrega dentro del h2: */
+/*   font-size: 1.5rem; */
+/*   text-transform: uppercase; */
+/*   letter-spacing: 0.1em; */
+
+/* Links: quitar subrayado */
+a {
+  color: #22C55E;
+  text-decoration: none;
+}
+
+/* Párrafos: mejor legibilidad */
+p {
+  line-height: 1.7;
+  color: #94A3B8;
+}
+
+
+/* ══════════════════════════════════════════════════════
+   ACTIVIDAD 3 — Clases y Selectores
+   Selectores: .nombre, .rol, .descripcion, .boton,
+               .tag, .email, #contacto
+   Propiedades: todas las anteriores + border-radius,
+                padding, display, max-width
+══════════════════════════════════════════════════════ */
+
+/* Clase .nombre — el h1 de tu nombre */
+.nombre {
+  color: #8B5CF6;
+  font-size: 2.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Clase .rol — tu cargo/descripción corta */
+.rol {
+  color: #94A3B8;
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+/* Clase .descripcion — el párrafo largo */
+.descripcion {
+  color: #CBD5E1;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  max-width: 800px;
+}
+
+/* Clase .boton — el botón de "ver proyectos" */
+.boton {
+  background-color: #cae91d;
+  color: rgb(56, 45, 216);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+}
+
+/* Clase .tag — las bolitas de habilidades */
+.tag {
+  background-color: rgba(9, 2, 24, 0.15);
+  color: #e9de49;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 100px;
+}
+
+/* ID #contacto — sección especial */
+#contacto {
+  background-color: #1E293B;
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+/* Clase .email — el correo en contacto */
+.email {
+  color: #22C55E;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.telefono {
+  color: #22C55E;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.direccion {
+  color: #22C55E;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* El header — barra de navegación */
+header {
+  background-color: #1E293B;
+  padding: 1rem 2rem;
+}
+
+/* Links dentro del nav (selector descendiente) */
+nav a {
+  color: #7e92af;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-right: 1.5rem;
+}
+
+/* Todas las secciones: respiro y centrado */
+section {
+  padding: 4rem 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Sección hero — más espacio arriba y abajo */
+#inicio {
+  text-align: center;
+  padding: 5rem 2rem;
+}
+
+/* Sección de habilidades — va al ancho completo */
+#habilidades {
+  background-color: #1E293B;
+  max-width: 100%;
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+/* Tarjetas de proyectos */
+.tarjeta {
+  background-color: #1E293B;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Título dentro de cada tarjeta */
+.tarjeta h3 {
+  color: #E2E8F0;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Tarjeta especial con dos clases: "tarjeta destacada" */
+.tarjeta.destacada {
+  background-color: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+}
+
+/* Link de "Ver proyecto" dentro de las tarjetas */
+.link-proyecto {
+  color: #032510;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* El footer — pie de página */
+footer {
+  background-color: #0a0f1a;
+  color: #475569;
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+.redes-sociales a {
+  color: rgb(245, 241, 8);
+  text-decoration: underline;
+  margin: 0 0.5rem;
+  font-weight: 600;
+}
+
+
+

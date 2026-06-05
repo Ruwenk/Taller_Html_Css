@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taller CSS · El Pintor · SENA ADSO</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap');
+
+    :root {
+      --morado: #8B5CF6;
+      --morado-suave: #A78BFA;
+      --morado-oscuro: #6D28D9;
+      --fondo: #0F172A;
+      --fondo2: #1E293B;
+      --fondo3: #334155;
+      --texto: #E2E8F0;
+      --texto-suave: #94A3B8;
+      --verde: #22C55E;
+      --amarillo: #EAB308;
+      --rojo: #EF4444;
+      --cyan: #06B6D4;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Syne', sans-serif;
+      background: var(--fondo);
+      color: var(--texto);
+      line-height: 1.6;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem 3rem;
+      background: linear-gradient(135deg, #0F172A 0%, #1a0a3a 50%, #0F172A 100%);
+      border-bottom: 1px solid #2d1f5e;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(139,92,246,0.15) 0%, transparent 70%);
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(139,92,246,0.15);
+      border: 1px solid rgba(139,92,246,0.4);
+      color: var(--morado-suave);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      padding: 0.3rem 1rem;
+      border-radius: 100px;
+      letter-spacing: 0.15em;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 span { color: var(--morado); }
+    .hero p {
+      color: var(--texto-suave);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+    .meta-row {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--texto-suave);
+    }
+    .meta-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* ── LAYOUT ── */
+    .contenedor { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* ── AGENDA ── */
+    .agenda { padding: 3rem 0; }
+    .agenda h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--texto-suave);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 1.5rem;
+      font-family: 'Space Mono', monospace;
+    }
+    .fases-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
+    .fase-card {
+      background: var(--fondo2);
+      border: 1px solid var(--fondo3);
+      border-radius: 12px;
+      padding: 1.2rem;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .fase-card:hover { border-color: var(--morado); }
+    .fase-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--morado-suave);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.3rem;
+    }
+    .fase-tiempo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--morado);
+      margin-bottom: 0.3rem;
+    }
+    .fase-nombre { font-size: 0.85rem; font-weight: 600; }
+    .fase-tema { font-size: 0.75rem; color: var(--texto-suave); margin-top: 0.3rem; }
+
+    /* ── SECCIÓN ACTIVIDAD ── */
+    .actividad {
+      padding: 3rem 0;
+      border-top: 1px solid var(--fondo3);
+    }
+    .act-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .act-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--morado-suave);
+      background: rgba(139,92,246,0.1);
+      border: 1px solid rgba(139,92,246,0.3);
+      border-radius: 8px;
+      padding: 0.4rem 0.7rem;
+      white-space: nowrap;
+      margin-top: 0.3rem;
+    }
+    .act-titulo { font-size: 1.6rem; font-weight: 800; }
+    .act-tiempo {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--amarillo);
+      margin-top: 0.2rem;
+    }
+    .act-intro {
+      color: var(--texto-suave);
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* ── PASOS ── */
+    .paso {
+      background: var(--fondo2);
+      border: 1px solid var(--fondo3);
+      border-radius: 14px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    .paso-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+    }
+    .paso-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .paso-titulo { font-size: 1rem; font-weight: 700; }
+    .paso-sub { font-size: 0.8rem; color: var(--texto-suave); }
+    .paso-cuerpo { padding: 0 1.2rem 1.2rem; }
+
+    /* ── CÓDIGO ── */
+    pre {
+      background: #0a0f1a;
+      border: 1px solid #1e2a3a;
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      overflow-x: auto;
+      margin: 0.8rem 0;
+    }
+    code {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+    .c-selector { color: #60d9fa; }
+    .c-prop { color: #c39cff; }
+    .c-val { color: #22c55e; }
+    .c-num { color: #f59e0b; }
+    .c-coment { color: #475569; font-style: italic; }
+    .c-tag { color: #f87171; }
+    .c-attr { color: #fb923c; }
+    .c-string { color: #86efac; }
+
+    /* ── TIPS Y ALERTAS ── */
+    .tip, .reto-box, .resultado-box {
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+    .tip {
+      background: rgba(6,182,212,0.08);
+      border: 1px solid rgba(6,182,212,0.25);
+      color: #a5f3fc;
+    }
+    .tip strong { color: var(--cyan); }
+    .reto-box {
+      background: rgba(234,179,8,0.08);
+      border: 1px solid rgba(234,179,8,0.3);
+      color: #fef9c3;
+    }
+    .reto-box strong { color: var(--amarillo); }
+    .resultado-box {
+      background: rgba(34,197,94,0.08);
+      border: 1px solid rgba(34,197,94,0.25);
+      color: #bbf7d0;
+    }
+    .resultado-box strong { color: var(--verde); }
+
+    /* ── COLUMNAS ── */
+    .dos-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 600px) { .dos-col { grid-template-columns: 1fr; } }
+
+    /* ── PROPIEDADES REFERENCIA ── */
+    .prop-tabla { width: 100%; border-collapse: collapse; margin: 0.8rem 0; }
+    .prop-tabla th {
+      text-align: left;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--texto-suave);
+      padding: 0.4rem 0.8rem;
+      border-bottom: 1px solid var(--fondo3);
+    }
+    .prop-tabla td {
+      padding: 0.5rem 0.8rem;
+      font-size: 0.85rem;
+      border-bottom: 1px solid rgba(51,65,85,0.5);
+    }
+    .prop-tabla td:first-child {
+      font-family: 'Space Mono', monospace;
+      color: var(--morado-suave);
+    }
+    .prop-tabla td:last-child { color: var(--texto-suave); }
+
+    /* ── COLORES DEMO ── */
+    .colores-demo { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.8rem 0; }
+    .color-chip {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .color-muestra {
+      width: 48px; height: 48px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .color-codigo {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--texto-suave);
+    }
+
+    /* ── PREVIEW ── */
+    .preview-box {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      color: #111;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .preview-box.dark {
+      background: #0F172A;
+      color: #E2E8F0;
+    }
+
+    /* ── RESULTADO FINAL ── */
+    .final-preview {
+      background: var(--fondo2);
+      border: 2px solid var(--morado);
+      border-radius: 16px;
+      padding: 2rem;
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+    .final-preview h3 { font-size: 1.1rem; color: var(--morado-suave); margin-bottom: 0.5rem; }
+
+    /* ── CHECKLIST ── */
+    .checklist { list-style: none; }
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      padding: 0.4rem 0;
+      font-size: 0.9rem;
+      color: var(--texto-suave);
+    }
+    .checklist li::before {
+      content: '□';
+      color: var(--morado);
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--fondo3);
+      color: var(--texto-suave);
+      font-size: 0.85rem;
+    }
+
+    .tag {
+      display: inline-block;
+      background: rgba(139,92,246,0.15);
+      color: var(--morado-suave);
+      font-size: 0.7rem;
+      font-family: 'Space Mono', monospace;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      margin: 0.1rem;
+    }
+
+    h3.seccion {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--texto-suave);
+      font-family: 'Space Mono', monospace;
+      margin: 1.2rem 0 0.6rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
+<header class="hero">
+  <div class="badge">SENA · ADSO 3472722 · SESIÓN 3</div>
+  <h1>Taller <span>El Pintor</span></h1>
+  <p>De cero a una página con diseño bonito — paso a paso</p>
+  <div class="meta-row">
+    <div class="meta-item">
+      <div class="meta-dot" style="background:#8B5CF6"></div>
+      5 horas de práctica
+    </div>
+    <div class="meta-item">
+      <div class="meta-dot" style="background:#22C55E"></div>
+      5 actividades progresivas
+    </div>
+    <div class="meta-item">
+      <div class="meta-dot" style="background:#EAB308"></div>
+      1 página completa al final
+    </div>
+  </div>
+</header>
+
+<div class="contenedor">
+
+  <!-- ═══ AGENDA ═══ -->
+  <section class="agenda">
+    <h2>// Mapa del taller</h2>
+    <div class="fases-grid">
+      <div class="fase-card">
+        <div class="fase-num">ACTIVIDAD 01</div>
+        <div class="fase-tiempo">45 min</div>
+        <div class="fase-nombre">Conecta y colorea</div>
+        <div class="fase-tema">Primer CSS · colores · body</div>
+      </div>
+      <div class="fase-card">
+        <div class="fase-num">ACTIVIDAD 02</div>
+        <div class="fase-tiempo">45 min</div>
+        <div class="fase-nombre">El Tipógrafo</div>
+        <div class="fase-tema">Fuentes · tamaños · texto</div>
+      </div>
+      <div class="fase-card">
+        <div class="fase-num">ACTIVIDAD 03</div>
+        <div class="fase-tiempo">60 min</div>
+        <div class="fase-nombre">Clases y selectores</div>
+        <div class="fase-tema">.clase · #id · estilos</div>
+      </div>
+      <div class="fase-card">
+        <div class="fase-num">ACTIVIDAD 04</div>
+        <div class="fase-tiempo">60 min</div>
+        <div class="fase-nombre">Secciones bonitas</div>
+        <div class="fase-tema">nav · tarjetas · footer</div>
+      </div>
+      <div class="fase-card">
+        <div class="fase-num">ACTIVIDAD 05</div>
+        <div class="fase-tiempo">90 min</div>
+        <div class="fase-nombre">Tu página final</div>
+        <div class="fase-tema">Todo junto · presentación</div>
+      </div>
+    </div>
+    <div class="tip" style="margin-top:1.5rem">
+      <strong>📁 Archivos del taller:</strong> Debes tener <code>mi-perfil.html</code> y <code>style.css</code> en la misma carpeta. Abre ambos en VS Code y usa Live Server para ver los cambios en tiempo real.
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PREPARACIÓN
+  ═════════════════════════════════════════ -->
+  <section class="actividad">
+    <div class="act-header">
+      <div class="act-num">ANTES DE EMPEZAR</div>
+      <div>
+        <div class="act-titulo">Prepara tu espacio de trabajo</div>
+        <div class="act-tiempo">⏱ 10 minutos</div>
+      </div>
+    </div>
+
+    <p class="act-intro">Antes de escribir una sola línea de CSS, necesitas tener dos archivos listos y conectados.</p>
+
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(139,92,246,0.15)">📁</div>
+        <div>
+          <div class="paso-titulo">Paso 0-A — Crea la carpeta y los archivos</div>
+          <div class="paso-sub">En VS Code → File → Open Folder → Nueva carpeta llamada "taller-css"</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <p style="font-size:0.9rem;color:var(--texto-suave);margin-bottom:0.8rem">Dentro de esa carpeta crea exactamente estos dos archivos:</p>
+        <pre><code><span class="c-coment">📂 taller-css/
+│
+├── mi-perfil.html   ← aquí va el HTML
+└── style.css        ← aquí va el CSS (empieza vacío)</span></code></pre>
+      </div>
+    </div>
+
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(139,92,246,0.15)">📄</div>
+        <div>
+          <div class="paso-titulo">Paso 0-B — Escribe el HTML de inicio (cópialo tal cual)</div>
+          <div class="paso-sub">Este es el HTML que vamos a ir pintando con CSS durante todo el taller</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <pre><code><span class="c-coment">&lt;!-- mi-perfil.html --&gt;</span>
+<span class="c-tag">&lt;!DOCTYPE html&gt;</span>
+<span class="c-tag">&lt;html</span> <span class="c-attr">lang</span>=<span class="c-string">"es"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;head&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">charset</span>=<span class="c-string">"UTF-8"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;title&gt;</span>Mi Perfil<span class="c-tag">&lt;/title&gt;</span>
+  <span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-string">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-string">"style.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;/head&gt;</span>
+<span class="c-tag">&lt;body&gt;</span>
+
+  <span class="c-tag">&lt;header&gt;</span>
+    <span class="c-tag">&lt;nav&gt;</span>
+      <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-string">"#inicio"</span><span class="c-tag">&gt;</span>Inicio<span class="c-tag">&lt;/a&gt;</span>
+      <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-string">"#proyectos"</span><span class="c-tag">&gt;</span>Proyectos<span class="c-tag">&lt;/a&gt;</span>
+      <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-string">"#contacto"</span><span class="c-tag">&gt;</span>Contacto<span class="c-tag">&lt;/a&gt;</span>
+    <span class="c-tag">&lt;/nav&gt;</span>
+  <span class="c-tag">&lt;/header&gt;</span>
+
+  <span class="c-tag">&lt;main&gt;</span>
+
+    <span class="c-tag">&lt;section</span> <span class="c-attr">id</span>=<span class="c-string">"inicio"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;h1</span> <span class="c-attr">class</span>=<span class="c-string">"nombre"</span><span class="c-tag">&gt;</span>Tu Nombre Aquí<span class="c-tag">&lt;/h1&gt;</span>
+      <span class="c-tag">&lt;p</span> <span class="c-attr">class</span>=<span class="c-string">"rol"</span><span class="c-tag">&gt;</span>Aprendiz ADSO · SENA<span class="c-tag">&lt;/p&gt;</span>
+      <span class="c-tag">&lt;p</span> <span class="c-attr">class</span>=<span class="c-string">"descripcion"</span><span class="c-tag">&gt;</span>
+        Estoy aprendiendo a desarrollar software. Me apasiona el diseño web
+        y crear cosas que la gente pueda usar.
+      <span class="c-tag">&lt;/p&gt;</span>
+      <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-string">"#proyectos"</span> <span class="c-attr">class</span>=<span class="c-string">"boton"</span><span class="c-tag">&gt;</span>Ver mis proyectos<span class="c-tag">&lt;/a&gt;</span>
+    <span class="c-tag">&lt;/section&gt;</span>
+
+    <span class="c-tag">&lt;section</span> <span class="c-attr">id</span>=<span class="c-string">"habilidades"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;h2&gt;</span>Mis habilidades<span class="c-tag">&lt;/h2&gt;</span>
+      <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-string">"tag"</span><span class="c-tag">&gt;</span>HTML<span class="c-tag">&lt;/span&gt;</span>
+      <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-string">"tag"</span><span class="c-tag">&gt;</span>CSS<span class="c-tag">&lt;/span&gt;</span>
+      <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-string">"tag"</span><span class="c-tag">&gt;</span>JavaScript<span class="c-tag">&lt;/span&gt;</span>
+      <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-string">"tag"</span><span class="c-tag">&gt;</span>Git<span class="c-tag">&lt;/span&gt;</span>
+    <span class="c-tag">&lt;/section&gt;</span>
+
+    <span class="c-tag">&lt;section</span> <span class="c-attr">id</span>=<span class="c-string">"proyectos"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;h2&gt;</span>Mis proyectos<span class="c-tag">&lt;/h2&gt;</span>
+
+      <span class="c-tag">&lt;article</span> <span class="c-attr">class</span>=<span class="c-string">"tarjeta"</span><span class="c-tag">&gt;</span>
+        <span class="c-tag">&lt;h3&gt;</span>Mi primera página web<span class="c-tag">&lt;/h3&gt;</span>
+        <span class="c-tag">&lt;p&gt;</span>Una página HTML con estructura semántica completa.<span class="c-tag">&lt;/p&gt;</span>
+        <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-string">"#"</span> <span class="c-attr">class</span>=<span class="c-string">"link-proyecto"</span><span class="c-tag">&gt;</span>Ver proyecto →<span class="c-tag">&lt;/a&gt;</span>
+      <span class="c-tag">&lt;/article&gt;</span>
+
+      <span class="c-tag">&lt;article</span> <span class="c-attr">class</span>=<span class="c-string">"tarjeta destacada"</span><span class="c-tag">&gt;</span>
+        <span class="c-tag">&lt;h3&gt;</span>Portafolio CSS<span class="c-tag">&lt;/h3&gt;</span>
+        <span class="c-tag">&lt;p&gt;</span>Mi perfil estilizado con colores, tipografía y diseño. <strong>¡Este mismo!</strong><span class="c-tag">&lt;/p&gt;</span>
+        <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-string">"#"</span> <span class="c-attr">class</span>=<span class="c-string">"link-proyecto"</span><span class="c-tag">&gt;</span>Ver proyecto →<span class="c-tag">&lt;/a&gt;</span>
+      <span class="c-tag">&lt;/article&gt;</span>
+
+    <span class="c-tag">&lt;/section&gt;</span>
+
+    <span class="c-tag">&lt;section</span> <span class="c-attr">id</span>=<span class="c-string">"contacto"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;h2&gt;</span>Contacto<span class="c-tag">&lt;/h2&gt;</span>
+      <span class="c-tag">&lt;p</span> <span class="c-attr">class</span>=<span class="c-string">"email"</span><span class="c-tag">&gt;</span>tucorreo@sena.edu.co<span class="c-tag">&lt;/p&gt;</span>
+    <span class="c-tag">&lt;/section&gt;</span>
+
+  <span class="c-tag">&lt;/main&gt;</span>
+
+  <span class="c-tag">&lt;footer&gt;</span>
+    <span class="c-tag">&lt;p&gt;</span>Hecho con ❤️ y CSS · Tu Nombre · 2026<span class="c-tag">&lt;/p&gt;</span>
+  <span class="c-tag">&lt;/footer&gt;</span>
+
+<span class="c-tag">&lt;/body&gt;</span>
+<span class="c-tag">&lt;/html&gt;</span></code></pre>
+        <div class="tip">
+          <strong>💡 Acuérdate:</strong> Reemplaza "Tu Nombre Aquí" con tu nombre real y "tucorreo@sena.edu.co" con tu correo. Guarda el archivo y ábrelo con <strong>Live Server</strong> (clic derecho → Open with Live Server).
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       ACTIVIDAD 1
+  ═════════════════════════════════════════ -->
+  <section class="actividad">
+    <div class="act-header">
+      <div class="act-num">ACTIVIDAD 01</div>
+      <div>
+        <div class="act-titulo">🎨 Conecta y colorea</div>
+        <div class="act-tiempo">⏱ 45 minutos</div>
+      </div>
+    </div>
+
+    <p class="act-intro">
+      Vamos a hacer que el CSS sea lo primero que el navegador aplique. Primero conectamos, luego pintamos el fondo,
+      luego el texto del <code>h1</code>. Cada paso es corto: escribe, guarda, mira el cambio.
+    </p>
+
+    <!-- PASO 1 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(139,92,246,0.15)">1️⃣</div>
+        <div>
+          <div class="paso-titulo">Abre style.css — empieza con el comentario de sección</div>
+          <div class="paso-sub">Los comentarios te ayudan a organizar tu CSS. Siempre úsalos.</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <pre><code><span class="c-coment">/* ═══════════════════════════
+   ACTIVIDAD 1 — Colores base
+═══════════════════════════ */</span></code></pre>
+        <div class="tip"><strong>💡 ¿Por qué?</strong> El comentario no hace nada visual, pero organiza tu código para que tú (y otros) puedan entenderlo después.</div>
+      </div>
+    </div>
+
+    <!-- PASO 2 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(34,197,94,0.15)">2️⃣</div>
+        <div>
+          <div class="paso-titulo">Dale fondo oscuro al body</div>
+          <div class="paso-sub">El selector <code>body</code> aplica a toda la página</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <pre><code><span class="c-selector">body</span> {
+  <span class="c-prop">background-color</span>: <span class="c-val">#0F172A</span>;  <span class="c-coment">/* azul muy oscuro */</span>
+  <span class="c-prop">color</span>: <span class="c-val">#E2E8F0</span>;           <span class="c-coment">/* texto claro */</span>
+}</code></pre>
+        <div class="reto-box">
+          <strong>⚡ Prueba esto:</strong> Guarda y mira. ¿La página cambió a fondo oscuro? Si no cambió, verifica que el archivo CSS está en la misma carpeta que el HTML y que el link está correcto.
+        </div>
+        <h3 class="seccion">// Paleta de colores de este taller</h3>
+        <div class="colores-demo">
+          <div class="color-chip">
+            <div class="color-muestra" style="background:#0F172A"></div>
+            <div class="color-codigo">#0F172A</div>
+          </div>
+          <div class="color-chip">
+            <div class="color-muestra" style="background:#1E293B"></div>
+            <div class="color-codigo">#1E293B</div>
+          </div>
+          <div class="color-chip">
+            <div class="color-muestra" style="background:#8B5CF6"></div>
+            <div class="color-codigo">#8B5CF6</div>
+          </div>
+          <div class="color-chip">
+            <div class="color-muestra" style="background:#E2E8F0"></div>
+            <div class="color-codigo">#E2E8F0</div>
+          </div>
+          <div class="color-chip">
+            <div class="color-muestra" style="background:#94A3B8"></div>
+            <div class="color-codigo">#94A3B8</div>
+          </div>
+          <div class="color-chip">
+            <div class="color-muestra" style="background:#22C55E"></div>
+            <div class="color-codigo">#22C55E</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 3 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(139,92,246,0.15)">3️⃣</div>
+        <div>
+          <div class="paso-titulo">Colorea el h1 con el morado especial</div>
+          <div class="paso-sub">Selector de etiqueta: aplica a TODOS los h1 de la página</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <pre><code><span class="c-selector">h1</span> {
+  <span class="c-prop">color</span>: <span class="c-val">#8B5CF6</span>;  <span class="c-coment">/* morado — el color de CSS Mundo 03 */</span>
+}</code></pre>
+        <div class="tip"><strong>💡 Diferencia clave:</strong> <code>color</code> cambia el <strong>texto</strong>. <code>background-color</code> cambia el <strong>fondo</strong>. Son dos propiedades distintas.</div>
+      </div>
+    </div>
+
+    <!-- PASO 4 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(234,179,8,0.15)">4️⃣</div>
+        <div>
+          <div class="paso-titulo">Experimenta con formatos de color</div>
+          <div class="paso-sub">CSS acepta colores en 4 formatos distintos. Pruébalos.</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <table class="prop-tabla">
+          <tr><th>FORMATO</th><th>EJEMPLO</th><th>CUÁNDO USARLO</th></tr>
+          <tr><td>#HEX</td><td>#8B5CF6</td><td>El más común. Cópialo del diseño.</td></tr>
+          <tr><td>nombre</td><td>purple, red, blue</td><td>Para pruebas rápidas. ~140 disponibles.</td></tr>
+          <tr><td>rgb()</td><td>rgb(139, 92, 246)</td><td>Cuando necesitas ajustar canales.</td></tr>
+          <tr><td>rgba()</td><td>rgba(139, 92, 246, 0.5)</td><td>Cuando necesitas transparencia.</td></tr>
+        </table>
+        <pre><code><span class="c-coment">/* Prueba cambiar el color del h2 con cada formato */</span>
+<span class="c-selector">h2</span> {
+  <span class="c-prop">color</span>: <span class="c-val">purple</span>;          <span class="c-coment">/* nombre */</span>
+  <span class="c-coment">/* color: #9333EA; */</span>      <span class="c-coment">/* hex */</span>
+  <span class="c-coment">/* color: rgb(147,51,234); */</span>  <span class="c-coment">/* rgb */</span>
+}</code></pre>
+        <div class="reto-box">
+          <strong>🎯 Reto de exploración:</strong> Cambia el <code>color</code> del <code>h2</code> con los 4 formatos distintos, uno a la vez. Guarda y mira. ¿El resultado visual es el mismo? ¿Por qué crees que hay 4 formatos si todos dan color?
+        </div>
+      </div>
+    </div>
+
+    <div class="resultado-box">
+      <strong>✅ Al terminar la Actividad 1 debes tener:</strong> Fondo oscuro en toda la página, texto principal claro, h1 morado, h2 con color. El CSS tiene exactamente 3–4 reglas.
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       ACTIVIDAD 2
+  ═════════════════════════════════════════ -->
+  <section class="actividad">
+    <div class="act-header">
+      <div class="act-num">ACTIVIDAD 02</div>
+      <div>
+        <div class="act-titulo">✍️ El Tipógrafo</div>
+        <div class="act-tiempo">⏱ 45 minutos</div>
+      </div>
+    </div>
+
+    <p class="act-intro">
+      Las fuentes le dan personalidad al diseño. Vamos a cambiar tipografía, tamaños, grosores,
+      alineación y espaciado de texto. Al final tu página se verá completamente diferente solo con propiedades de texto.
+    </p>
+
+    <!-- PASO 1 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(139,92,246,0.15)">1️⃣</div>
+        <div>
+          <div class="paso-titulo">Cambia la fuente de toda la página</div>
+          <div class="paso-sub">font-family en el body se hereda a todos los hijos</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <pre><code><span class="c-selector">body</span> {
+  <span class="c-prop">background-color</span>: <span class="c-val">#0F172A</span>;
+  <span class="c-prop">color</span>: <span class="c-val">#E2E8F0</span>;
+  <span class="c-prop">font-family</span>: <span class="c-val">'Segoe UI', Arial, sans-serif</span>; <span class="c-coment">/* ← agrega esto */</span>
+}</code></pre>
+        <div class="tip">
+          <strong>💡 ¿Por qué tres valores?</strong> Si el navegador no tiene 'Segoe UI', prueba Arial. Si tampoco lo tiene, usa cualquier fuente sin serif. Es un plan de respaldo.
+        </div>
+        <table class="prop-tabla">
+          <tr><th>FUENTE</th><th>ESTILO</th></tr>
+          <tr><td>'Segoe UI', sans-serif</td><td>Moderna, limpia — Windows/Android</td></tr>
+          <tr><td>Georgia, serif</td><td>Elegante, editorial</td></tr>
+          <tr><td>Consolas, monospace</td><td>Código, técnico, developer</td></tr>
+          <tr><td>Impact, sans-serif</td><td>Bold, impactante, posters</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- PASO 2 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(34,197,94,0.15)">2️⃣</div>
+        <div>
+          <div class="paso-titulo">Ajusta el tamaño del h1 y el espacio entre líneas</div>
+          <div class="paso-sub">font-size y line-height son los más importantes para legibilidad</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <pre><code><span class="c-selector">h1</span> {
+  <span class="c-prop">color</span>: <span class="c-val">#8B5CF6</span>;
+  <span class="c-prop">font-size</span>: <span class="c-val">3rem</span>;      <span class="c-coment">/* 3rem = 48px (1rem = 16px por defecto) */</span>
+  <span class="c-prop">font-weight</span>: <span class="c-val">900</span>;    <span class="c-coment">/* 900 = black (el más grueso) */</span>
+  <span class="c-prop">line-height</span>: <span class="c-val">1.1</span>;   <span class="c-coment">/* espacio entre líneas — 1.1 es compacto */</span>
+}</code></pre>
+        <div class="dos-col">
+          <div>
+            <h3 class="seccion">// font-size: unidades</h3>
+            <table class="prop-tabla">
+              <tr><th>UNIDAD</th><th>EQUIVALE A</th></tr>
+              <tr><td>1rem</td><td>16px (tamaño base)</td></tr>
+              <tr><td>1.5rem</td><td>24px</td></tr>
+              <tr><td>2rem</td><td>32px</td></tr>
+              <tr><td>3rem</td><td>48px</td></tr>
+            </table>
+          </div>
+          <div>
+            <h3 class="seccion">// font-weight: grosores</h3>
+            <table class="prop-tabla">
+              <tr><th>VALOR</th><th>NOMBRE</th></tr>
+              <tr><td>300</td><td>Light</td></tr>
+              <tr><td>400</td><td>Normal (default)</td></tr>
+              <tr><td>700</td><td>Bold</td></tr>
+              <tr><td>900</td><td>Black</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 3 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(139,92,246,0.15)">3️⃣</div>
+        <div>
+          <div class="paso-titulo">Propiedades de texto: align, decoration y transform</div>
+          <div class="paso-sub">Controlan la alineación, subrayado y mayúsculas</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <pre><code><span class="c-selector">h2</span> {
+  <span class="c-prop">color</span>: <span class="c-val">#A78BFA</span>;            <span class="c-coment">/* morado claro */</span>
+  <span class="c-prop">font-size</span>: <span class="c-val">1.5rem</span>;
+  <span class="c-prop">text-transform</span>: <span class="c-val">uppercase</span>;  <span class="c-coment">/* TODO EN MAYÚSCULAS */</span>
+  <span class="c-prop">letter-spacing</span>: <span class="c-val">0.1em</span>;     <span class="c-coment">/* espacio entre letras */</span>
+}
+
+<span class="c-selector">a</span> {
+  <span class="c-prop">color</span>: <span class="c-val">#22C55E</span>;             <span class="c-coment">/* verde */</span>
+  <span class="c-prop">text-decoration</span>: <span class="c-val">none</span>;     <span class="c-coment">/* quita el subrayado de los links */</span>
+}
+
+<span class="c-selector">p</span> {
+  <span class="c-prop">line-height</span>: <span class="c-val">1.7</span>;          <span class="c-coment">/* más espacio = más fácil de leer */</span>
+  <span class="c-prop">color</span>: <span class="c-val">#94A3B8</span>;            <span class="c-coment">/* gris claro para párrafos */</span>
+}</code></pre>
+        <div class="reto-box">
+          <strong>🎯 Experimenta:</strong> Prueba <code>text-align: center</code> en el <code>h1</code>. Luego prueba <code>right</code> y <code>justify</code>. ¿Cuál se ve mejor para un título de perfil?
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 4 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(234,179,8,0.15)">4️⃣</div>
+        <div>
+          <div class="paso-titulo">Agrega line-height al body para mejor lectura</div>
+          <div class="paso-sub">Un line-height de 1.6–1.7 hace los párrafos mucho más legibles</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <pre><code><span class="c-selector">body</span> {
+  <span class="c-prop">background-color</span>: <span class="c-val">#0F172A</span>;
+  <span class="c-prop">color</span>: <span class="c-val">#E2E8F0</span>;
+  <span class="c-prop">font-family</span>: <span class="c-val">'Segoe UI', Arial, sans-serif</span>;
+  <span class="c-prop">line-height</span>: <span class="c-val">1.6</span>;      <span class="c-coment">/* ← esto mejora la legibilidad global */</span>
+  <span class="c-prop">font-size</span>: <span class="c-val">1rem</span>;        <span class="c-coment">/* tamaño base del texto normal */</span>
+}</code></pre>
+      </div>
+    </div>
+
+    <div class="resultado-box">
+      <strong>✅ Al terminar la Actividad 2 debes tener:</strong> Fuente cambiada en toda la página, h1 grande y bold, h2 en uppercase con espaciado, links sin subrayado, párrafos con buen interlineado. Tu CSS ya tiene unas 8–10 reglas.
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       ACTIVIDAD 3
+  ═════════════════════════════════════════ -->
+  <section class="actividad">
+    <div class="act-header">
+      <div class="act-num">ACTIVIDAD 03</div>
+      <div>
+        <div class="act-titulo">🎯 Clases y Selectores</div>
+        <div class="act-tiempo">⏱ 60 minutos</div>
+      </div>
+    </div>
+
+    <p class="act-intro">
+      Hasta ahora usamos selectores de <strong>etiqueta</strong> (h1, p, body). Ahora vamos a usar <strong>clases</strong> y <strong>IDs</strong> — estos nos permiten estilizar elementos específicos sin afectar a todos los demás.
+    </p>
+
+    <!-- PASO 1 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(139,92,246,0.15)">1️⃣</div>
+        <div>
+          <div class="paso-titulo">Estiliza la clase .nombre y .rol</div>
+          <div class="paso-sub">El punto (.) indica que es una clase — aplica solo a los elementos con ese class</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <pre><code><span class="c-coment">/* ═══════════════════════════
+   ACTIVIDAD 3 — Clases e IDs
+═══════════════════════════ */</span>
+
+<span class="c-selector">.nombre</span> {
+  <span class="c-prop">color</span>: <span class="c-val">#8B5CF6</span>;
+  <span class="c-prop">font-size</span>: <span class="c-val">2.5rem</span>;
+  <span class="c-prop">font-weight</span>: <span class="c-val">800</span>;
+  <span class="c-prop">text-transform</span>: <span class="c-val">uppercase</span>;
+  <span class="c-prop">letter-spacing</span>: <span class="c-val">0.05em</span>;
+}
+
+<span class="c-selector">.rol</span> {
+  <span class="c-prop">color</span>: <span class="c-val">#94A3B8</span>;
+  <span class="c-prop">font-size</span>: <span class="c-val">1.1rem</span>;
+  <span class="c-prop">font-style</span>: <span class="c-val">italic</span>;   <span class="c-coment">/* cursiva para el subtítulo */</span>
+}</code></pre>
+        <div class="tip">
+          <strong>💡 Clase vs etiqueta:</strong> <code>h1 { }</code> afecta TODOS los h1 de la página. <code>.nombre { }</code> solo afecta los elementos que tengan <code>class="nombre"</code>. Puedes mezclarlos libremente.
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 2 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(34,197,94,0.15)">2️⃣</div>
+        <div>
+          <div class="paso-titulo">Estiliza .descripcion y .boton</div>
+          <div class="paso-sub">El botón necesita background-color — aquí aparece por primera vez en el proyecto</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <pre><code><span class="c-selector">.descripcion</span> {
+  <span class="c-prop">color</span>: <span class="c-val">#CBD5E1</span>;
+  <span class="c-prop">font-size</span>: <span class="c-val">1.1rem</span>;
+  <span class="c-prop">line-height</span>: <span class="c-val">1.8</span>;
+  <span class="c-prop">max-width</span>: <span class="c-val">500px</span>;     <span class="c-coment">/* no dejar que el texto sea demasiado ancho */</span>
+}
+
+<span class="c-selector">.boton</span> {
+  <span class="c-prop">background-color</span>: <span class="c-val">#8B5CF6</span>;  <span class="c-coment">/* fondo morado */</span>
+  <span class="c-prop">color</span>: <span class="c-val">white</span>;                <span class="c-coment">/* texto blanco */</span>
+  <span class="c-prop">text-decoration</span>: <span class="c-val">none</span>;
+  <span class="c-prop">font-weight</span>: <span class="c-val">700</span>;
+  <span class="c-prop">letter-spacing</span>: <span class="c-val">0.05em</span>;
+  <span class="c-prop">display</span>: <span class="c-val">inline-block</span>;    <span class="c-coment">/* necesario para aplicar padding */</span>
+  <span class="c-prop">padding</span>: <span class="c-val">0.75rem 1.5rem</span>;   <span class="c-coment">/* espacio interno (lo veremos en Mundo 04) */</span>
+  <span class="c-prop">border-radius</span>: <span class="c-val">8px</span>;        <span class="c-coment">/* esquinas redondeadas */</span>
+}</code></pre>
+        <div class="reto-box">
+          <strong>🎯 Reto de personalización:</strong> Cambia el color del botón a <code>#22C55E</code> (verde). ¿Se ve diferente? ¿Cuál prefieres? Ahora vuelve al morado.
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 3 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(139,92,246,0.15)">3️⃣</div>
+        <div>
+          <div class="paso-titulo">Estiliza las .tag (las bolitas de habilidades)</div>
+          <div class="paso-sub">Una clase → muchos elementos — las 4 habilidades se estilizan con UNA regla</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <pre><code><span class="c-selector">.tag</span> {
+  <span class="c-prop">background-color</span>: <span class="c-val">rgba(139, 92, 246, 0.15)</span>; <span class="c-coment">/* morado transparente */</span>
+  <span class="c-prop">color</span>: <span class="c-val">#A78BFA</span>;
+  <span class="c-prop">font-size</span>: <span class="c-val">0.85rem</span>;
+  <span class="c-prop">font-weight</span>: <span class="c-val">700</span>;
+  <span class="c-prop">letter-spacing</span>: <span class="c-val">0.08em</span>;
+  <span class="c-prop">text-transform</span>: <span class="c-val">uppercase</span>;
+  <span class="c-prop">display</span>: <span class="c-val">inline-block</span>;
+  <span class="c-prop">padding</span>: <span class="c-val">0.3rem 0.8rem</span>;
+  <span class="c-prop">border-radius</span>: <span class="c-val">100px</span>;      <span class="c-coment">/* muy redondeado = "pill" */</span>
+}</code></pre>
+        <div class="tip">
+          <strong>💡 Magia del rgba:</strong> <code>rgba(139, 92, 246, 0.15)</code> es el mismo morado pero con solo un 15% de opacidad. El último número (0 a 1) controla la transparencia. Prueba con 0.5 y con 1 para ver la diferencia.
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 4 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(234,179,8,0.15)">4️⃣</div>
+        <div>
+          <div class="paso-titulo">Usa el selector de ID para la sección #contacto</div>
+          <div class="paso-sub">El # indica que es un ID — solo puede haber uno en la página</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <pre><code><span class="c-selector">#contacto</span> {
+  <span class="c-prop">background-color</span>: <span class="c-val">#1E293B</span>;  <span class="c-coment">/* fondo diferente para esta sección */</span>
+  <span class="c-prop">text-align</span>: <span class="c-val">center</span>;
+  <span class="c-prop">padding</span>: <span class="c-val">3rem 2rem</span>;
+}
+
+<span class="c-selector">.email</span> {
+  <span class="c-prop">color</span>: <span class="c-val">#22C55E</span>;
+  <span class="c-prop">font-size</span>: <span class="c-val">1.2rem</span>;
+  <span class="c-prop">font-weight</span>: <span class="c-val">700</span>;
+  <span class="c-prop">letter-spacing</span>: <span class="c-val">0.05em</span>;
+}</code></pre>
+        <table class="prop-tabla" style="margin-top:0.8rem">
+          <tr><th>SELECTOR</th><th>SÍMBOLO</th><th>CUÁNDO USARLO</th></tr>
+          <tr><td>etiqueta</td><td>(ninguno)</td><td>Todos los h1, p, body...</td></tr>
+          <tr><td>.clase</td><td>.</td><td>Grupos de elementos similares</td></tr>
+          <tr><td>#id</td><td>#</td><td>UN elemento único (logo, sección especial)</td></tr>
+          <tr><td>*</td><td>*</td><td>Absolutamente todos los elementos</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="resultado-box">
+      <strong>✅ Al terminar la Actividad 3 debes tener:</strong> Nombre grande y morado, botón con fondo de color, tags/píldoras de habilidades estilizadas, sección de contacto con fondo diferente. Estás usando selectores de etiqueta, clase e ID.
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       ACTIVIDAD 4
+  ═════════════════════════════════════════ -->
+  <section class="actividad">
+    <div class="act-header">
+      <div class="act-num">ACTIVIDAD 04</div>
+      <div>
+        <div class="act-titulo">🏗️ Secciones bonitas</div>
+        <div class="act-tiempo">⏱ 60 minutos</div>
+      </div>
+    </div>
+
+    <p class="act-intro">
+      Ahora vamos a trabajar con las partes estructurales: el <code>header</code> (nav),
+      las <code>tarjetas</code> de proyectos y el <code>footer</code>. Aquí la página empieza a verse como un sitio real.
+    </p>
+
+    <!-- PASO 1 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(139,92,246,0.15)">1️⃣</div>
+        <div>
+          <div class="paso-titulo">Estiliza el header y el nav</div>
+          <div class="paso-sub">El header tiene fondo propio y el nav organiza los links</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <pre><code><span class="c-coment">/* ═══════════════════════════
+   ACTIVIDAD 4 — Secciones
+═══════════════════════════ */</span>
+
+<span class="c-selector">header</span> {
+  <span class="c-prop">background-color</span>: <span class="c-val">#1E293B</span>;  <span class="c-coment">/* un poco más claro que el body */</span>
+  <span class="c-prop">padding</span>: <span class="c-val">1rem 2rem</span>;
+}
+
+<span class="c-selector">nav a</span> {                          <span class="c-coment">/* selector descendiente: links DENTRO del nav */</span>
+  <span class="c-prop">color</span>: <span class="c-val">#94A3B8</span>;
+  <span class="c-prop">text-decoration</span>: <span class="c-val">none</span>;
+  <span class="c-prop">font-weight</span>: <span class="c-val">600</span>;
+  <span class="c-prop">font-size</span>: <span class="c-val">0.9rem</span>;
+  <span class="c-prop">letter-spacing</span>: <span class="c-val">0.05em</span>;
+  <span class="c-prop">text-transform</span>: <span class="c-val">uppercase</span>;
+  <span class="c-prop">margin-right</span>: <span class="c-val">1.5rem</span>;         <span class="c-coment">/* espacio entre los links del nav */</span>
+}</code></pre>
+        <div class="tip">
+          <strong>💡 Selector descendiente:</strong> <code>nav a</code> significa "los elementos <code>&lt;a&gt;</code> que estén DENTRO de un <code>&lt;nav&gt;</code>". No afecta a los links que están en el main o el footer. Muy útil para estilos específicos.
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 2 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(34,197,94,0.15)">2️⃣</div>
+        <div>
+          <div class="paso-titulo">Estiliza las secciones principales</div>
+          <div class="paso-sub">Cada section necesita su propio respiro (padding) y ancho máximo</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <pre><code><span class="c-selector">section</span> {
+  <span class="c-prop">padding</span>: <span class="c-val">4rem 2rem</span>;
+  <span class="c-prop">max-width</span>: <span class="c-val">800px</span>;
+  <span class="c-prop">margin</span>: <span class="c-val">0 auto</span>;           <span class="c-coment">/* centrar el contenido */</span>
+}
+
+<span class="c-selector">#inicio</span> {
+  <span class="c-prop">text-align</span>: <span class="c-val">center</span>;
+  <span class="c-prop">padding</span>: <span class="c-val">5rem 2rem</span>;       <span class="c-coment">/* la sección hero tiene más padding */</span>
+}
+
+<span class="c-selector">#habilidades</span> {
+  <span class="c-prop">background-color</span>: <span class="c-val">#1E293B</span>;
+  <span class="c-prop">max-width</span>: <span class="c-val">100%</span>;            <span class="c-coment">/* esta sección va a todo el ancho */</span>
+  <span class="c-prop">text-align</span>: <span class="c-val">center</span>;
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- PASO 3 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(139,92,246,0.15)">3️⃣</div>
+        <div>
+          <div class="paso-titulo">Las tarjetas de proyectos</div>
+          <div class="paso-sub">Ahora usamos .tarjeta y .tarjeta.destacada — dos clases a la vez</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <pre><code><span class="c-selector">.tarjeta</span> {
+  <span class="c-prop">background-color</span>: <span class="c-val">#1E293B</span>;
+  <span class="c-prop">border-radius</span>: <span class="c-val">12px</span>;
+  <span class="c-prop">padding</span>: <span class="c-val">1.5rem</span>;
+  <span class="c-prop">margin-bottom</span>: <span class="c-val">1rem</span>;
+}
+
+<span class="c-selector">.tarjeta h3</span> {
+  <span class="c-prop">color</span>: <span class="c-val">#E2E8F0</span>;
+  <span class="c-prop">font-size</span>: <span class="c-val">1.1rem</span>;
+  <span class="c-prop">margin-bottom</span>: <span class="c-val">0.5rem</span>;
+}
+
+<span class="c-coment">/* Tarjeta especial: tiene las dos clases "tarjeta destacada" */</span>
+<span class="c-selector">.tarjeta.destacada</span> {
+  <span class="c-prop">background-color</span>: <span class="c-val">rgba(139, 92, 246, 0.1)</span>;
+  <span class="c-prop">border</span>: <span class="c-val">1px solid rgba(139, 92, 246, 0.4)</span>;  <span class="c-coment">/* borde morado */</span>
+}
+
+<span class="c-selector">.link-proyecto</span> {
+  <span class="c-prop">color</span>: <span class="c-val">#22C55E</span>;
+  <span class="c-prop">text-decoration</span>: <span class="c-val">none</span>;
+  <span class="c-prop">font-weight</span>: <span class="c-val">700</span>;
+  <span class="c-prop">font-size</span>: <span class="c-val">0.9rem</span>;
+}</code></pre>
+        <div class="tip">
+          <strong>💡 Dos clases:</strong> El HTML dice <code>class="tarjeta destacada"</code> — tiene DOS clases. En CSS, <code>.tarjeta.destacada</code> (sin espacio entre los puntos) selecciona solo los elementos que tengan AMBAS clases. Con espacio sería un selector descendiente.
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 4 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(234,179,8,0.15)">4️⃣</div>
+        <div>
+          <div class="paso-titulo">El footer — cierre del documento</div>
+          <div class="paso-sub">Oscuro, centrado, pequeño — el footer es el cierre tranquilo de la página</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <pre><code><span class="c-selector">footer</span> {
+  <span class="c-prop">background-color</span>: <span class="c-val">#0a0f1a</span>;  <span class="c-coment">/* más oscuro que el body */</span>
+  <span class="c-prop">color</span>: <span class="c-val">#475569</span>;              <span class="c-coment">/* gris oscuro */</span>
+  <span class="c-prop">text-align</span>: <span class="c-val">center</span>;
+  <span class="c-prop">padding</span>: <span class="c-val">2rem</span>;
+  <span class="c-prop">font-size</span>: <span class="c-val">0.85rem</span>;
+  <span class="c-prop">letter-spacing</span>: <span class="c-val">0.05em</span>;
+}</code></pre>
+      </div>
+    </div>
+
+    <div class="resultado-box">
+      <strong>✅ Al terminar la Actividad 4 debes tener:</strong> Nav estilizado en el header, tarjetas con fondo diferente al body, la tarjeta "destacada" con borde morado, footer con cierre visual. La página ya se ve como un sitio real.
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       ACTIVIDAD 5
+  ═════════════════════════════════════════ -->
+  <section class="actividad">
+    <div class="act-header">
+      <div class="act-num">ACTIVIDAD 05</div>
+      <div>
+        <div class="act-titulo">🏆 Tu página final</div>
+        <div class="act-tiempo">⏱ 90 minutos</div>
+      </div>
+    </div>
+
+    <p class="act-intro">
+      Ya tienes todas las herramientas. Esta última fase es tuya: personaliza la página con tus colores, tu información y tu estilo. Al final la presentas al grupo.
+    </p>
+
+    <!-- PASO 1 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(139,92,246,0.15)">1️⃣</div>
+        <div>
+          <div class="paso-titulo">Elige tu paleta de colores</div>
+          <div class="paso-sub">Cambia los colores del taller por los tuyos — o elige una de estas paletas</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <div class="dos-col">
+          <div>
+            <h3 class="seccion">// Paleta Océano</h3>
+            <div class="colores-demo">
+              <div class="color-chip"><div class="color-muestra" style="background:#0a1628"></div><div class="color-codigo">#0a1628</div></div>
+              <div class="color-chip"><div class="color-muestra" style="background:#06B6D4"></div><div class="color-codigo">#06B6D4</div></div>
+              <div class="color-chip"><div class="color-muestra" style="background:#E0F7FA"></div><div class="color-codigo">#E0F7FA</div></div>
+            </div>
+            <h3 class="seccion">// Paleta Bosque</h3>
+            <div class="colores-demo">
+              <div class="color-chip"><div class="color-muestra" style="background:#0d1f1a"></div><div class="color-codigo">#0d1f1a</div></div>
+              <div class="color-chip"><div class="color-muestra" style="background:#22C55E"></div><div class="color-codigo">#22C55E</div></div>
+              <div class="color-chip"><div class="color-muestra" style="background:#dcfce7"></div><div class="color-codigo">#dcfce7</div></div>
+            </div>
+          </div>
+          <div>
+            <h3 class="seccion">// Paleta Fuego</h3>
+            <div class="colores-demo">
+              <div class="color-chip"><div class="color-muestra" style="background:#1a0a00"></div><div class="color-codigo">#1a0a00</div></div>
+              <div class="color-chip"><div class="color-muestra" style="background:#F97316"></div><div class="color-codigo">#F97316</div></div>
+              <div class="color-chip"><div class="color-muestra" style="background:#FEF3C7"></div><div class="color-codigo">#FEF3C7</div></div>
+            </div>
+            <h3 class="seccion">// Paleta Rosa</h3>
+            <div class="colores-demo">
+              <div class="color-chip"><div class="color-muestra" style="background:#1a0010"></div><div class="color-codigo">#1a0010</div></div>
+              <div class="color-chip"><div class="color-muestra" style="background:#EC4899"></div><div class="color-codigo">#EC4899</div></div>
+              <div class="color-chip"><div class="color-muestra" style="background:#fdf2f8"></div><div class="color-codigo">#fdf2f8</div></div>
+            </div>
+          </div>
+        </div>
+        <pre><code><span class="c-coment">/* Cuando elijas tu paleta, cambia ESTOS valores en tu body y en las clases */</span>
+<span class="c-selector">body</span> {
+  <span class="c-prop">background-color</span>: <span class="c-val">#TU-COLOR-FONDO</span>;   <span class="c-coment">/* el más oscuro */</span>
+  <span class="c-prop">color</span>: <span class="c-val">#TU-COLOR-TEXTO</span>;            <span class="c-coment">/* el más claro */</span>
+}
+
+<span class="c-selector">.nombre</span> {
+  <span class="c-prop">color</span>: <span class="c-val">#TU-COLOR-ACENTO</span>;          <span class="c-coment">/* el color principal de la paleta */</span>
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- PASO 2 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(34,197,94,0.15)">2️⃣</div>
+        <div>
+          <div class="paso-titulo">Personaliza tu información</div>
+          <div class="paso-sub">Edita el HTML para que sea TU perfil real</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <ul class="checklist">
+          <li>Cambia "Tu Nombre Aquí" por tu nombre completo en el HTML</li>
+          <li>Cambia "Aprendiz ADSO · SENA" por tu ficha y ciudad</li>
+          <li>Escribe tu propia descripción de 2–3 líneas</li>
+          <li>Agrega al menos 2 habilidades reales que tengas (puede ser Excel, dibujo, etc.)</li>
+          <li>Cambia el nombre de los proyectos por algo que tú hayas hecho o quieras hacer</li>
+          <li>Pon tu correo real en la sección de contacto</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PASO 3 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(139,92,246,0.15)">3️⃣</div>
+        <div>
+          <div class="paso-titulo">Agrega la fuente de Google Fonts</div>
+          <div class="paso-sub">Google Fonts es gratis y tiene más de 1.000 fuentes — dale personalidad a tu página</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <p style="font-size:0.9rem;color:var(--texto-suave);margin-bottom:0.8rem">Ve a <strong>fonts.google.com</strong>, elige una fuente que te guste, copia el link y pégalo en el &lt;head&gt; de tu HTML, ANTES del link de tu style.css:</p>
+        <pre><code><span class="c-coment">&lt;!-- Pega aquí el link de Google Fonts --&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-string">"preconnect"</span> <span class="c-attr">href</span>=<span class="c-string">"https://fonts.googleapis.com"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">href</span>=<span class="c-string">"https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap"</span> <span class="c-attr">rel</span>=<span class="c-string">"stylesheet"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-string">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-string">"style.css"</span><span class="c-tag">&gt;</span>  <span class="c-coment">&lt;!-- el tuyo va de último --&gt;</span></code></pre>
+        <pre><code><span class="c-coment">/* En el CSS, úsala así: */</span>
+<span class="c-selector">body</span> {
+  <span class="c-prop">font-family</span>: <span class="c-val">'Poppins', sans-serif</span>;  <span class="c-coment">/* el nombre exacto que diga en Google Fonts */</span>
+}</code></pre>
+        <div class="tip">
+          <strong>💡 Sugerencias de Google Fonts para portafolios:</strong>
+          <span class="tag">Poppins</span>
+          <span class="tag">Raleway</span>
+          <span class="tag">Montserrat</span>
+          <span class="tag">DM Sans</span>
+          <span class="tag">Nunito</span>
+          <span class="tag">Outfit</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 4 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(234,179,8,0.15)">4️⃣</div>
+        <div>
+          <div class="paso-titulo">Revisa tu CSS completo — checklist final</div>
+          <div class="paso-sub">Antes de presentar, verifica que hayas usado todas las propiedades del taller</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <div class="dos-col">
+          <div>
+            <h3 class="seccion">// Propiedades usadas</h3>
+            <ul class="checklist">
+              <li><code>color</code> — texto de algún elemento</li>
+              <li><code>background-color</code> — fondo de al menos 2 elementos</li>
+              <li><code>font-family</code> — fuente del body</li>
+              <li><code>font-size</code> — al menos 3 tamaños distintos</li>
+              <li><code>font-weight</code> — bold en algún elemento</li>
+              <li><code>line-height</code> — en body o párrafos</li>
+              <li><code>text-align</code> — al menos una vez</li>
+              <li><code>text-decoration</code> — en los links</li>
+              <li><code>text-transform</code> — en h2 o las tags</li>
+              <li><code>letter-spacing</code> — en algún título</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="seccion">// Selectores usados</h3>
+            <ul class="checklist">
+              <li>Selector de etiqueta: <code>body</code>, <code>h1</code>, <code>p</code>...</li>
+              <li>Selector de clase: <code>.nombre</code>, <code>.tarjeta</code>...</li>
+              <li>Selector de ID: <code>#contacto</code> u otro</li>
+              <li>Selector descendiente: <code>nav a</code></li>
+              <li>Dos clases: <code>.tarjeta.destacada</code></li>
+            </ul>
+            <h3 class="seccion" style="margin-top:1rem">// Formatos de color usados</h3>
+            <ul class="checklist">
+              <li>Hexadecimal: <code>#8B5CF6</code></li>
+              <li>Nombre: <code>white</code></li>
+              <li>rgba(): <code>rgba(139,92,246,0.15)</code></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 5 -->
+    <div class="paso">
+      <div class="paso-header">
+        <div class="paso-icon" style="background:rgba(234,179,8,0.15)">5️⃣</div>
+        <div>
+          <div class="paso-titulo">Presentación — El Duelo de Estilos</div>
+          <div class="paso-sub">Cada aprendiz muestra su página. El grupo vota por el mejor diseño.</div>
+        </div>
+      </div>
+      <div class="paso-cuerpo">
+        <p style="font-size:0.9rem;color:var(--texto-suave);margin-bottom:1rem">Cuando presentes tu página, explica al grupo:</p>
+        <ul class="checklist">
+          <li>¿Qué paleta de colores elegiste y por qué?</li>
+          <li>¿Cuál propiedad CSS fue la más difícil de entender?</li>
+          <li>¿Cuál fue la más interesante o la que más te gustó?</li>
+          <li>¿Qué mejorarías si tuvieras más tiempo?</li>
+        </ul>
+        <div class="reto-box" style="margin-top:1rem">
+          <strong>🏆 Reto EXTRA (para quien termine antes):</strong> Agrega una segunda versión del CSS con paleta clara (fondo blanco, texto oscuro). Cambia el nombre del archivo a <code>style-claro.css</code> y prueba cómo se ve el mismo HTML con estilos completamente distintos.
+        </div>
+      </div>
+    </div>
+
+    <div class="final-preview">
+      <h3>🎉 ¡Lo lograste!</h3>
+      <p style="color:var(--texto-suave);font-size:0.95rem;margin-top:0.5rem">
+        Construiste una página web con CSS real usando colores, tipografía, selectores, clases e IDs.<br>
+        En el <strong>Mundo 04 — La Caja</strong> aprenderás margin, padding y el box model para controlar el espacio perfectamente.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ REFERENCIA RÁPIDA ═══ -->
+  <section class="actividad">
+    <div class="act-header">
+      <div class="act-num">REFERENCIA</div>
+      <div>
+        <div class="act-titulo">📋 Todas las propiedades del taller</div>
+      </div>
+    </div>
+    <div class="dos-col">
+      <div>
+        <h3 class="seccion">// COLOR</h3>
+        <table class="prop-tabla">
+          <tr><td>color</td><td>Color del texto</td></tr>
+          <tr><td>background-color</td><td>Color del fondo</td></tr>
+        </table>
+        <h3 class="seccion">// TIPOGRAFÍA</h3>
+        <table class="prop-tabla">
+          <tr><td>font-family</td><td>Familia tipográfica</td></tr>
+          <tr><td>font-size</td><td>Tamaño del texto</td></tr>
+          <tr><td>font-weight</td><td>Grosor (300–900)</td></tr>
+          <tr><td>font-style</td><td>normal / italic</td></tr>
+          <tr><td>line-height</td><td>Espacio entre líneas</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3 class="seccion">// TEXTO</h3>
+        <table class="prop-tabla">
+          <tr><td>text-align</td><td>left / center / right</td></tr>
+          <tr><td>text-decoration</td><td>none / underline</td></tr>
+          <tr><td>text-transform</td><td>uppercase / capitalize</td></tr>
+          <tr><td>letter-spacing</td><td>Espacio entre letras</td></tr>
+        </table>
+        <h3 class="seccion">// SELECTORES</h3>
+        <table class="prop-tabla">
+          <tr><td>h1 { }</td><td>Etiqueta</td></tr>
+          <tr><td>.clase { }</td><td>Clase (punto)</td></tr>
+          <tr><td>#id { }</td><td>ID (numeral)</td></tr>
+          <tr><td>nav a { }</td><td>Descendiente</td></tr>
+          <tr><td>.a.b { }</td><td>Dos clases</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /contenedor -->
+
+<footer>
+  <p>SENA · ADSO 3472722 · Sesión 3 — El Pintor · CSS Básico</p>
+  <p style="margin-top:0.5rem">Siguiente sesión: <strong>Mundo 04 — La Caja</strong> · margin, padding, border, box model</p>
+</footer>
+
+</body>
+</html>
